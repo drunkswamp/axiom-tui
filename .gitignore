@@ -1,0 +1,30 @@
+# --- Binaries ---
+# Игнорируем скомпилированные бинарники для разных ОС
+axiomtui
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# --- Go Specific ---
+# Кеши сборки, модули и рабочие файлы
+/axiom-tui/vendor/
+/axiom-tui/tmp/
+*.test
+*.out
+go.work
+go.work.sum
+
+# --- Logs & Temp ---
+*.log
+.DS_Store
+
+# --- IDE & Editors ---
+.idea/
+.vscode/
+.env
+
+# --- AI & Agent metadata ---
+.ghost/
+docs/superpowers/

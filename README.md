@@ -1,3 +1,5 @@
+## Currrently working on it.  
+
 # axiom-tui
 
 A clean, lightweight console dashboard that brings Docker containers, systemd services, and resource graphs into a single terminal view. Built purely in Go with the Charmbracelet Bubble Tea framework.

@@ -1,16 +1,17 @@
 package dockercomponent
 
 import (
-	"axiomtui/internal/domain"
 	"axiomtui/internal/docker" // Import the docker adapter
-	tea "github.com/charmbracelet/bubbletea"
+	"axiomtui/internal/domain"
 	"context"
+	tea "github.com/charmbracelet/bubbletea"
 )
 
 // Model for the Docker tab now holds a list of unified services.
 type Model struct {
 	Services []domain.Service
 	Error    error
+	Loaded   bool
 	adapter  *docker.Adapter // Add docker adapter
 }
 

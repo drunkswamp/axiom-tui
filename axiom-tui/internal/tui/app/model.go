@@ -1,6 +1,8 @@
 package app
 
 import (
+	"os"
+
 	"axiomtui/internal/localization"
 	dockercomponent "axiomtui/internal/tui/components/docker"
 	metricscomponent "axiomtui/internal/tui/components/metrics"
@@ -38,7 +40,7 @@ type AppModel struct {
 
 // NewAppModel теперь возвращает (AppModel, error)
 func NewAppModel() (AppModel, error) {
-	language := localization.Russian
+	language := localization.LanguageFromString(os.Getenv("AXIOMTUI_LANG"))
 
 	docker, err := dockercomponent.NewModel()
 	if err != nil {

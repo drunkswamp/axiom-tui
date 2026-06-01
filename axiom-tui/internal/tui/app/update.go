@@ -7,7 +7,7 @@ import (
 )
 
 func (m AppModel) Init() tea.Cmd {
-	return initialCmd()
+	return initialCmd(m)
 }
 
 func (m AppModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
@@ -46,5 +46,14 @@ func (m AppModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 	}
 
-	return m, nil
+	dockerModel, dockerCmd := m.Docker.Update(msg)
+	m.Docker = dockerModel
+
+	systemdModel, systemdCmd := m.Systemd.Update(msg)
+	m.Systemd = systemdModel
+
+	metricsModel, metricsCmd := m.Metrics.Update(msg)
+	m.Metrics = metricsModel
+
+	return m, tea.Batch(dockerCmd, systemdCmd, metricsCmd)
 }

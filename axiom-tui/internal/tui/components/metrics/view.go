@@ -7,15 +7,15 @@ import (
 
 func (m Model) View(translator localization.Translator) string {
 	if m.Error != nil {
-		return fmt.Sprintf("Error: %v", m.Error)
+		return fmt.Sprintf(translator.T(localization.KeyMetricsErrorFormat), m.Error)
 	}
 
-	if m.Snapshot.Timestamp.IsZero() {
-		return translator.T(localization.KeyMetricsPlaceholder)
+	if !m.Loaded {
+		return translator.T(localization.KeyMetricsLoading)
 	}
 
 	return fmt.Sprintf(
-		"CPU: %.2f%% | RAM: %.2f%%",
+		translator.T(localization.KeyMetricsSummary),
 		m.Snapshot.CPUUsage,
 		m.Snapshot.MemoryUsage,
 	)

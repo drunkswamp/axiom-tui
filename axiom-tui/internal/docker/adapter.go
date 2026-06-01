@@ -7,8 +7,7 @@ import (
 
 	"axiomtui/internal/domain"
 
-	"github.com/docker/docker/client"
-	"github.com/moby/moby/api/types"
+	"github.com/moby/moby/client"
 )
 
 // Adapter is a Docker client adapter.
@@ -32,17 +31,13 @@ func (a *Adapter) Close() error {
 
 // GetServices retrieves a list of Docker containers and maps them to domain.Service.
 func (a *Adapter) GetServices(ctx context.Context) ([]domain.Service, error) {
-	// Correct implementation from scratch.
-	// 1. Use container.ListOptions
-	// 2. Expect []types.Container as a result
-	// 3. Iterate over []types.Container
-	containers, err := a.cli.ContainerList(ctx, types.ContainerListOptions{All: true})
+	result, err := a.cli.ContainerList(ctx, client.ContainerListOptions{All: true})
 	if err != nil {
 		return nil, err
 	}
 
 	var services []domain.Service
-	for _, cont := range containers {
+	for _, cont := range result.Items {
 		var name string
 		if len(cont.Names) > 0 {
 			name = strings.TrimPrefix(cont.Names[0], "/")

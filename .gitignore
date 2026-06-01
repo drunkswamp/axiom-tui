@@ -1,6 +1,7 @@
 # --- Binaries ---
 # Игнорируем скомпилированные бинарники для разных ОС
-axiomtui
+/axiomtui
+/axiom-tui/axiomtui
 *.exe
 *.exe~
 *.dll

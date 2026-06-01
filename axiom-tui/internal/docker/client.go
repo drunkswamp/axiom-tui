@@ -7,9 +7,8 @@ import (
 
 	"axiomtui/internal/domain"
 
-	"github.com/docker/docker/client"
-	"github.com/moby/moby/api/types"
 	"github.com/moby/moby/api/types/container"
+	"github.com/moby/moby/client"
 )
 
 // Client is a wrapper around the official Docker API client.
@@ -28,13 +27,13 @@ func NewClient() (*Client, error) {
 
 // ListContainers gets a list of local containers and maps them to the unified model.
 func (c *Client) ListContainers() ([]domain.Service, error) {
-	containers, err := c.api.ContainerList(context.Background(), types.ContainerListOptions{All: true})
+	result, err := c.api.ContainerList(context.Background(), client.ContainerListOptions{All: true})
 	if err != nil {
 		return nil, err
 	}
 
 	var services []domain.Service
-	for _, cont := range containers {
+	for _, cont := range result.Items {
 		services = append(services, c.mapContainerToService(cont))
 	}
 
@@ -42,7 +41,7 @@ func (c *Client) ListContainers() ([]domain.Service, error) {
 }
 
 // mapContainerToService converts the raw container type to our domain model.
-func (c *Client) mapContainerToService(cont types.Container) domain.Service {
+func (c *Client) mapContainerToService(cont container.Summary) domain.Service {
 	var name string
 	if len(cont.Names) > 0 {
 		name = strings.TrimPrefix(cont.Names[0], "/")

@@ -2,9 +2,6 @@
 
 A lightweight, keyboard-driven terminal control plane for local infrastructure. It brings Docker containers, systemd services, and basic system metrics into a clean, unified TUI dashboard.
 
-![axiom-tui-screenshot](https://github.com/drunkswamp/axiom-tui/assets/12345/your-screenshot-filename.png) 
-*(Note: Add a real screenshot here after committing.)*
-
 **Project Status:** Early work-in-progress. The application is buildable and functional for basic monitoring, but under active development.
 
 ## Key Features

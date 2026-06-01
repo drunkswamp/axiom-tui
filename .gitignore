@@ -25,7 +25,3 @@ go.work.sum
 .idea/
 .vscode/
 .env
-
-# --- AI & Agent metadata ---
-.ghost/
-docs/superpowers/

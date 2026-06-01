@@ -1,49 +1,89 @@
-## Currrently working on it.  
-
 # axiom-tui
 
-A clean, lightweight console dashboard that brings Docker containers, systemd services, and resource graphs into a single terminal view. Built purely in Go with the Charmbracelet Bubble Tea framework.
+A lightweight, keyboard-driven terminal control plane for local infrastructure. It brings Docker containers, systemd services, and basic system metrics into a clean, unified TUI dashboard.
+
+![axiom-tui-screenshot](https://github.com/drunkswamp/axiom-tui/assets/12345/your-screenshot-filename.png) 
+*(Note: Add a real screenshot here after committing.)*
+
+**Project Status:** Early work-in-progress. The application is buildable and functional for basic monitoring, but under active development.
 
 ## Key Features
 
-* **Docker Management:** Monitor local containers, view statuses, and track active workloads in real-time.
-* **Systemd Integration:** Keep track of essential background services and system units directly from the TUI.
-* **Live Metrics:** Lightweight resource monitors and graphs for quick system health checks.
-* **Keyboard-Driven:** Fast, responsive, and completely optimized for terminal-only environments.
-
-## Installation
-Make sure you have Go installed on your machine, then run:
-
-```bash
-
-go install github.com/drunkswamp/axiom-tui/cmd/axiomtui@latest
-
-```
-
-Note: The executable will be installed to your $GOPATH/bin directory. Ensure this directory is added to your system's PATH to run the tool from anywhere.
-
-## Quick Start
-Simply run the compiled binary or call it directly if it's in your PATH:
-
-```bash
-
-axiomtui
-
-```
-
-## Hotkeys
-Tab / Shift+Tab — Switch between component panels (Docker, Systemd, Metrics)
-
-Arrows / Keyboard shortcuts — Navigate within lists
-
-Ctrl+C / Q — Safely exit the application
+*   **Docker Dashboard:** See running containers, check their status, and monitor basic resource usage from the Docker tab. The view correctly distinguishes between loading, empty, error, and populated list states.
+*   **Systemd Services:** The systemd tab currently shows mock-backed services, providing a functional preview of service monitoring.
+*   **Live Metrics:** Get a quick system health check with a CPU and RAM usage snapshot on the Metrics tab.
+*   **Bilingual UI:** Defaults to English. Switch to Russian by setting the `AXIOMTUI_LANG=ru` environment variable.
+*   **Cross-Platform:** Builds and runs on both Linux and Windows.
+*   **Pure Go TUI:** Built with the excellent Charmbracelet Bubble Tea framework for a fast, responsive terminal experience.
 
 ## Requirements
-Go 1.23.0 or higher
 
-Docker daemon running locally
+*   **Go:** Version 1.26.3 or a compatible version that supports the module's dependencies.
+*   **Docker:** A running Docker daemon is optional for the application to start but required for the Docker tab to show container data.
+*   **Git:** Required for cloning the repository.
 
-Windows / Linux environment (with systemd support for unit tracking)
+## Build and Run From Source
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/drunkswamp/axiom-tui.git
+    cd axiom-tui
+    ```
+
+2.  **Navigate to the Go module:**
+    The active Go module is in the `axiom-tui/` subdirectory.
+    ```bash
+    cd axiom-tui
+    ```
+
+3.  **Download dependencies:**
+    ```bash
+    go mod download
+    ```
+
+4.  **(Recommended) Run tests:**
+    ```bash
+    go test -v ./...
+    ```
+
+5.  **Build the binary:**
+    ```bash
+    go build -o axiomtui ./cmd/axiomtui
+    ```
+    This creates an executable named `axiomtui` in the current directory.
+
+6.  **Run the application:**
+    ```bash
+    ./axiomtui
+    ```
+    The application will start in English by default.
+
+## Language Selection
+
+*   **Run in English (default):**
+    ```bash
+    ./axiomtui
+    ```
+*   **Run in Russian:**
+    ```bash
+    AXIOMTUI_LANG=ru ./axiomtui
+    ```
+
+## Development
+
+To verify your changes during development, run these commands from the `axiom-tui/` directory:
+
+```bash
+# Run the full test suite
+go test -v ./...
+
+# Build for your native OS
+go build -v ./...
+
+# Cross-compile for Linux to ensure CI will pass
+GOOS=linux GOARCH=amd64 go build -v ./...
+```
 
 ## License
-MIT License. Feel free to use, modify, and distribute.
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

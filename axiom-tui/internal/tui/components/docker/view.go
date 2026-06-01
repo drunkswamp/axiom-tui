@@ -8,22 +8,26 @@ import (
 
 func (m Model) View(translator localization.Translator) string {
 	if m.Error != nil {
-		return fmt.Sprintf("Error: %v", m.Error)
+		return fmt.Sprintf(translator.T(localization.KeyDockerErrorFormat), m.Error)
+	}
+
+	if !m.Loaded {
+		return translator.T(localization.KeyDockerLoading)
 	}
 
 	if len(m.Services) == 0 {
-		return translator.T(localization.KeyDockerPlaceholder)
+		return translator.T(localization.KeyDockerEmpty)
 	}
 
 	var b strings.Builder
-	b.WriteString("ID\t\tNAME\t\tSTATE\t\tIMAGE\n")
+	b.WriteString(translator.T(localization.KeyDockerTableHeader))
 	for _, service := range m.Services {
-		b.WriteString(fmt.Sprintf("%s\t%s\t\t%s\t\t%s\n",
+		fmt.Fprintf(&b, "%s\t%s\t\t%s\t\t%s\n",
 			service.ID,
 			service.Name,
-			service.State,
-			service.Type, // Type field from domain.Service holds the image name
-		))
+			service.State.Status,
+			service.Type,
+		)
 	}
 	return b.String()
 }

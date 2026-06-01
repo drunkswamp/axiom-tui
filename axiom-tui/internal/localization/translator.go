@@ -1,9 +1,23 @@
 package localization
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type Translator struct {
 	language Language
+}
+
+func LanguageFromString(value string) Language {
+	switch strings.ToLower(strings.TrimSpace(value)) {
+	case string(Russian):
+		return Russian
+	case string(English):
+		return English
+	default:
+		return English
+	}
 }
 
 func NewTranslator(language Language) Translator {
